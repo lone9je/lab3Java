@@ -64,4 +64,22 @@ public class TokenRemover {
         }
         return tokens;
     }
+    // Новый метод для подсчета количества удаленных лексем
+    public int countRemovedTokens(String inputFilePath, String tokensFilePath) throws IOException {
+        Set<String> tokens = readTokens(tokensFilePath);
+        int count = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for (String token : tokens) {
+                    if (line.contains(token)) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
 }
